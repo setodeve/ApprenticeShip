@@ -6,13 +6,13 @@ class VendingMachine
   
   def deposit_coin(m)
     if m==100
-      @money = m
+      @money += m
     end
   end
 
-  def press_button
-    if(@money>=100) 
-      return "cider"
+  def press_button(s)
+    if(@money>=s.drink_value_return()) 
+      return s.drink_return()
     end
   end
 
@@ -22,13 +22,28 @@ class VendingMachine
     end
 end
 
+class DrinkList 
+  def initialize(s)
+    if('cola'==s)
+      @value = 150
+    else
+      @value = 100
+    end
+    @drink = s
+  end
+
+  def drink_return 
+    return @drink
+  end
+
+  def drink_value_return 
+    return @value
+  end
+end
+
+cola = DrinkList.new('cola')
 vending_machine = VendingMachine.new('サントリー')
-puts vending_machine.press_button
-
-vending_machine.deposit_coin(150)
-puts vending_machine.press_button
-
 vending_machine.deposit_coin(100)
-puts vending_machine.press_button
-
-puts vending_machine.press_manufacturer_name
+puts vending_machine.press_button(cola)
+vending_machine.deposit_coin(100)
+puts vending_machine.press_button(cola)
