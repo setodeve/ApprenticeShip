@@ -2,6 +2,7 @@ class VendingMachine
   def initialize(s)
     @str = s
     @money = 0
+    @cup = 0
   end
   
   def deposit_coin(m)
@@ -11,18 +12,25 @@ class VendingMachine
   end
 
   def press_button(s)
-    if(@money>=s.drink_value_return()) 
+    if(s.is_a?(Drink) and @money>=s.drink_value_return()) 
       return s.drink_return()
+    elsif(s.is_a?(Cup) and @cup>=1)
+      @cup-=1
+      return "#{s.drink_return()} cup coffee"
     end
   end
 
+  def add_cup(n)
+    @cup += n
+  end
+  
   private
     def press_manufacturer_name
       return @str
     end
 end
 
-class DrinkList 
+class Item 
   def initialize(s)
     if('cola'==s)
       @value = 150
@@ -41,9 +49,21 @@ class DrinkList
   end
 end
 
-cola = DrinkList.new('cola')
+class Drink < Item
+
+end
+
+class Cup < Item
+
+end
+
+hot_cup_coffee = Cup.new('hot');
+cider = Drink.new('cider')
 vending_machine = VendingMachine.new('サントリー')
 vending_machine.deposit_coin(100)
-puts vending_machine.press_button(cola)
 vending_machine.deposit_coin(100)
-puts vending_machine.press_button(cola)
+puts vending_machine.press_button(cider)
+
+puts vending_machine.press_button(hot_cup_coffee)
+vending_machine.add_cup(1)
+puts vending_machine.press_button(hot_cup_coffee)
