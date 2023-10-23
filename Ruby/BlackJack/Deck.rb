@@ -5,12 +5,12 @@ require "./Card"
 
 class Deck
   MARK = ["♦︎", "❤︎", "♠︎", "♣︎"]
-  CARD_NUM = 13
+  CARD_NUM = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"]
   def initialize
     @deck = Array.new(0)
-    CARD_NUM.times do |num|
+    CARD_NUM.each do |num|
       MARK.each do |mark|
-        @deck.push(Card.new(num + 1, mark))
+        @deck.push(Card.new(num, mark))
       end
     end
   end
@@ -24,3 +24,5 @@ class Deck
   def draw
   end
 end
+# deck = Deck.new()
+# p deck.getDeckInfo()
