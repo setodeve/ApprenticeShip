@@ -19,10 +19,17 @@ class Deck
   end
 
   def shuffle
+    1.upto(1000) do |n|
+      r1 = rand(0..51)
+      r2 = rand(0..51)
+      @deck[r1], @deck[r2] = @deck[r2], @deck[r1]
+    end
   end
 
   def draw
   end
 end
 # deck = Deck.new()
+# p deck.getDeckInfo()
+# deck.shuffle()
 # p deck.getDeckInfo()
