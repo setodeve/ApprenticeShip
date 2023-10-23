@@ -14,6 +14,13 @@ class Deck
   def getDeckInfo
     return @cards
   end
+
+  def shuffle
+  end
+
+  def draw
+  end
+
 end
 
 # deck = Deck.new()
