@@ -1,18 +1,21 @@
+# frozen_string_literal: true
+
 require "./Card"
+# frozen_string_literal: true
 
 class Deck
-  MARK = ["♦︎","❤︎","♠︎","♣︎"]
+  MARK = ["♦︎", "❤︎", "♠︎", "♣︎"]
   CARD_NUM = 13
-  def initialize()
-    @cards = Array.new(0)
+  def initialize
+    @deck = Array.new(0)
     CARD_NUM.times do |num|
       MARK.each do |mark|
-        @cards.push(Card.new(num+1,mark))
+        @deck.push(Card.new(num + 1, mark))
       end
     end
   end
   def getDeckInfo
-    return @cards
+    @deck
   end
 
   def shuffle
@@ -20,8 +23,4 @@ class Deck
 
   def draw
   end
-
 end
-
-# deck = Deck.new()
-# p deck.getDeckInfo()
