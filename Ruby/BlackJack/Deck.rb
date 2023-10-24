@@ -33,8 +33,3 @@ class Deck < Card
     cards
   end
 end
-# deck = Deck.new()
-# p deck.getDeckInfo()
-# deck.shuffle()
-# p deck.draw(2)
-# p deck.getDeckInfo()
