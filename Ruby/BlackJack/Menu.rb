@@ -21,20 +21,16 @@ class Menu
     puts "ディーラーの引いた2枚目のカードはわかりません。"
   end
 
-  def showPoint(checkPlayer, point)
-    if checkPlayer
-      puts "あなたの得点は#{point}です。"
+  def showPoint(user)
+    if user.instance_of?(Player)
+      puts "あなたの得点は#{user.getUserPoint}です。"
     else
-      puts "ディーラーの得点は#{point}です。"
+      puts "ディーラーの得点は#{user.getUserPoint}です。"
     end
   end
 
   def showJudgeEndGame(checkGame)
-    if checkGame
-      puts "あなたの勝ちです"
-    else
-      puts "あなたの負けです"
-    end
+    puts checkGame ? "あなたの勝ちです" : "あなたの負けです"
     showEndGame()
     exit
   end
