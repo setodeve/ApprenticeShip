@@ -6,7 +6,19 @@ class User
     @point = 0
   end
 
-  def getUserInfo
-    [@cardonhand, @point]
+  def getUserCard
+    @cardonhand
+  end
+
+  def getUserPoint
+    @point
+  end
+
+  def serUserCard(drawedcard)
+    @cardonhand.push(drawedcard)
+  end
+
+  def serUserPoint(point)
+    @point += point
   end
 end
