@@ -5,4 +5,8 @@ class User
     @cardonhand = Array.new(0)
     @point = 0
   end
+
+  def getUserInfo
+    [@cardonhand, @point]
+  end
 end
