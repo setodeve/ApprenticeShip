@@ -48,6 +48,7 @@ class Main
     if user.getUserPoint >= 22
       menu.showJudgeEndGame(flg)
     end
+    menu.showPoint(user)
   end
 
   def compareFinalNumber(player, dealer)
@@ -72,14 +73,11 @@ class Main
 
     # Playerが複数回カードドロー
     drawloopPlayer(player1, menu, deck)
-
     # Playerのポイントが21を超えた場合
     checklineover(player1, menu, false)
 
     # dealerが複数回カードドロー
-    menu.showPoint(dealer)
     drawloopDealer(dealer, deck)
-
     # dealerのポイントが21を超えた場合
     checklineover(dealer, menu, true)
 

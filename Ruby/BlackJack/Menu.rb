@@ -5,12 +5,12 @@ class Menu
     puts "ブラックジャックを開始します"
   end
 
+  def checkUser(flg)
+    flg ? "あなた" : "ディーラー"
+  end
+
   def showDrawCard(checkPlayer, num, mark)
-    if checkPlayer
-      puts "あなた引いたカードは#{mark}の#{num}です。"
-    else
-      puts "ディーラーの引いたカードは#{mark}の#{num}です。"
-    end
+    puts "#{checkUser(checkPlayer)}が引いたカードは#{mark}の#{num}です。"
   end
 
   def showPlayerPoint(point)
@@ -22,11 +22,7 @@ class Menu
   end
 
   def showPoint(user)
-    if user.instance_of?(Player)
-      puts "あなたの得点は#{user.getUserPoint}です。"
-    else
-      puts "ディーラーの得点は#{user.getUserPoint}です。"
-    end
+    puts "#{checkUser(user.instance_of?(Player))}の得点は#{user.getUserPoint}です。"
   end
 
   def showJudgeEndGame(checkGame)
