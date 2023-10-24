@@ -17,7 +17,7 @@ class Menu
     puts "あなたの現在の得点は#{point}です。カードを引きますか？（Y/N）"
   end
 
-  def showDealerDraw2ndCard(num, mark)
+  def showDealerDraw2ndCard()
     puts "ディーラーの引いた2枚目のカードはわかりません。"
   end
 

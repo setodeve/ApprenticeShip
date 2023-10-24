@@ -22,7 +22,12 @@ class User
     @point += point
   end
 
+  def clearUserPoint
+    @point = 0
+  end
+
   def calculate
+    clearUserPoint()
     @cardonhand.map { |c| setUserPoint(c[0].getConstantCardNumber[c[0].getCardNumber]) }
   end
 end
