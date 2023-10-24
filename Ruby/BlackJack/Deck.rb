@@ -14,6 +14,7 @@ class Deck
       end
     end
   end
+
   def getDeckInfo
     @deck
   end
