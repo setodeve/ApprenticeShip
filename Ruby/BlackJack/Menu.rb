@@ -17,7 +17,7 @@ class Menu
     puts "あなたの現在の得点は#{point}です。カードを引きますか？（Y/N）"
   end
 
-  def showDealerDraw2ndCard()
+  def showDealerDraw2ndCard
     puts "ディーラーの引いた2枚目のカードはわかりません。"
   end
 
@@ -35,6 +35,12 @@ class Menu
     else
       puts "あなたの負けです"
     end
+    showEndGame()
+    exit
+  end
+
+  def showCheckYesorNo
+    puts "Y または N を入力してください"
   end
 
   def showEndGame

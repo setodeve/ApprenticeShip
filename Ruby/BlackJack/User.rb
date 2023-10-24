@@ -16,6 +16,7 @@ class User
 
   def setUserCard(drawedcard)
     @cardonhand.push(drawedcard)
+    calculate()
   end
 
   def setUserPoint(point)
@@ -27,7 +28,18 @@ class User
   end
 
   def calculate
+    count = 0
     clearUserPoint()
-    @cardonhand.map { |c| setUserPoint(c[0].getConstantCardNumber[c[0].getCardNumber]) }
+
+    @cardonhand.map { |c|
+      if c[0].getCardNumber != :A
+        count += 1
+      end
+      setUserPoint(c[0].getConstantCardNumber[c[0].getCardNumber])
+    }
+    # Aが含まれていて11として加算して問題ない場合加算
+    if count >= 1 && @point < 11 && @point > 22
+      setUserPoint(10 * count)
+    end
   end
 end
