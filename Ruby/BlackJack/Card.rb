@@ -19,4 +19,8 @@ class Card
   def getCardMark
     @mark
   end
+
+  def getConstantCardNumber
+    CARD_NUM
+  end
 end
