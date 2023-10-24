@@ -11,4 +11,12 @@ class Card
   def getCardInfo
     [@num, @mark]
   end
+
+  def getCardNumber
+    @num
+  end
+
+  def getCardMark
+    @mark
+  end
 end

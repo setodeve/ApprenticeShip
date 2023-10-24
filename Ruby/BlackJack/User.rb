@@ -14,11 +14,11 @@ class User
     @point
   end
 
-  def serUserCard(drawedcard)
+  def setUserCard(drawedcard)
     @cardonhand.push(drawedcard)
   end
 
-  def serUserPoint(point)
+  def setUserPoint(point)
     @point += point
   end
 end
