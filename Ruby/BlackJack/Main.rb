@@ -5,74 +5,89 @@ require "./Menu"
 require "./Player"
 require "./Dealer"
 
-def main
-  menu = Menu.new()
-  deck = Deck.new()
-  player1 = Player.new()
-  dealer = Dealer.new()
+class Main
+  def initialize
+  end
 
-  deck.shuffle()
-
-  # Playerのカードドロー
-  card = deck.draw(1)
-  player1.setUserCard(card)
-  menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
-  card = deck.draw(1)
-  player1.setUserCard(card)
-  menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
-
-  # dealerのカードカードドロー
-  card = deck.draw(1)
-  dealer.setUserCard(card)
-  menu.showDrawCard(false, card[0].getCardNumber, card[0].getCardMark)
-  card = deck.draw(1)
-  dealer.setUserCard(card)
-  menu.showDealerDraw2ndCard()
-
-  # Playerが複数回カードドロー
-  loop do
-    menu.showPlayerPoint(player1.getUserPoint)
-    key = gets.chomp
-    if key == "Y"
-      card = deck.draw(1)
-      player1.setUserCard(card)
-      menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
-    elsif key == "N"
-      break
+  def drawCard(user, menu, deck, number)
+    card = deck.draw(number)
+    user.setUserCard(card)
+    if user.instance_of?(Player) || (user.instance_of?(Dealer) && user.getUserCard.length() <= 1)
+      menu.showDrawCard(user.instance_of?(Player), card[0].getCardNumber, card[0].getCardMark)
     else
-      menu.showCheckYesorNo()
+      menu.showDealerDraw2ndCard()
     end
   end
 
-  # Playerのポイントが21を超えた場合
-  if player1.getUserPoint >= 22
-    menu.showJudgeEndGame(false)
-  end
-
-  menu.showPoint(false, dealer.getUserPoint)
-  # dealerが複数回カードドロー
-  loop do
-    if dealer.getUserPoint >= 17
-      break
-    else
-      card = deck.draw(1)
-      dealer.setUserCard(card)
+  def drawloopPlayer(user, menu, deck)
+    loop do
+      menu.showPlayerPoint(user.getUserPoint)
+      key = gets.chomp
+      if key == "Y"
+        drawCard(user, menu, deck, 1)
+      elsif key == "N"
+        break
+      else
+        menu.showCheckYesorNo()
+      end
     end
   end
 
-  # dealerのポイントが21を超えた場合
-  if dealer.getUserPoint >= 22
-    menu.showJudgeEndGame(true)
+  def drawloopDealer(user, deck)
+    loop do
+      if user.getUserPoint >= 17
+        break
+      else
+        card = deck.draw(1)
+        user.setUserCard(card)
+      end
+    end
   end
 
-  menu.showPoint(true, player1.getUserPoint)
-  menu.showPoint(false, dealer.getUserPoint)
+  def checklineover(user, menu, flg)
+    if user.getUserPoint >= 22
+      menu.showJudgeEndGame(flg)
+    end
+  end
 
-  if player1.getUserPoint >= dealer.getUserPoint
-    menu.showJudgeEndGame(true)
-  else
-    menu.showJudgeEndGame(false)
+  def compareFinalNumber(player, dealer)
+    player.getUserPoint >= dealer.getUserPoint
+  end
+
+  def main
+    menu = Menu.new()
+    deck = Deck.new()
+    player1 = Player.new()
+    dealer = Dealer.new()
+
+    deck.shuffle()
+
+    # Playerのカードドロー
+    drawCard(player1, menu, deck, 1)
+    drawCard(player1, menu, deck, 1)
+
+    # dealerのカードカードドロー
+    drawCard(dealer, menu, deck, 1)
+    drawCard(dealer, menu, deck, 1)
+
+    # Playerが複数回カードドロー
+    drawloopPlayer(player1, menu, deck)
+
+    # Playerのポイントが21を超えた場合
+    checklineover(player1, menu, false)
+
+    # dealerが複数回カードドロー
+    menu.showPoint(dealer)
+    drawloopDealer(dealer, deck)
+
+    # dealerのポイントが21を超えた場合
+    checklineover(dealer, menu, true)
+
+    menu.showPoint(player1)
+    menu.showPoint(dealer)
+    compareFinalNumber(player1, dealer) ? menu.showJudgeEndGame(true) : menu.showJudgeEndGame(false)
   end
 end
 
-main
+main = Main.new()
+main.main()
