@@ -26,10 +26,16 @@ class Deck
     end
   end
 
-  def draw
+  def draw(time)
+    cards = Array.new(0)
+    time.times do
+      cards.push(@deck.pop())
+    end
+    cards
   end
 end
 # deck = Deck.new()
 # p deck.getDeckInfo()
 # deck.shuffle()
+# p deck.draw(2)
 # p deck.getDeckInfo()
