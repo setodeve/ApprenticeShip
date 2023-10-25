@@ -16,7 +16,7 @@ class Player < User
         menu.showCheckYesorNo()
       end
     end
-    self.checklineover(menu, false)
+    self.checklineover(menu)
   end
 
   def drawCard(menu, deck, number)

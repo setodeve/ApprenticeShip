@@ -65,9 +65,10 @@ class User
     self.setUserCard(card)
   end
 
-  def checklineover(menu, flg)
+  def checklineover(menu)
     if self.getUserPoint >= 22
-      menu.showJudgeEndGame(flg)
+      menu.showJudgeEndGame(false, self)
+      menu.showEndGame
     end
   end
 end
