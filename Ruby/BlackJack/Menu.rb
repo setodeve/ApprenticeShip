@@ -29,10 +29,12 @@ class Menu
     puts "プレイヤーCPUの得点は#{user.getUserPoint}です。"
   end
 
-  def showJudgeEndGame(checkGame)
-    puts checkGame ? "あなたの勝ちです" : "あなたの負けです"
-    showEndGame()
-    exit
+  def showJudgeEndGame(checkGame, player)
+    if player.instance_of?(Player)
+      puts checkGame ? "あなたの勝ちです" : "あなたの負けです"
+    else
+      puts checkGame ? "プレイヤーCPUの勝ちです" : "プレイヤーCPUの負けです"
+    end
   end
 
   def showCheckYesorNo
@@ -41,5 +43,6 @@ class Menu
 
   def showEndGame
     puts "ブラックジャックを終了します。"
+    exit
   end
 end
