@@ -3,87 +3,73 @@
 require "./Deck"
 require "./Menu"
 require "./Player"
+require "./CPU"
 require "./Dealer"
 
 class Main
   def initialize
-  end
-
-  def drawCard(user, menu, deck, number)
-    card = deck.draw(number)
-    user.setUserCard(card)
-    if user.instance_of?(Player) || (user.instance_of?(Dealer) && user.getUserCard.length() <= 1)
-      menu.showDrawCard(user.instance_of?(Player), card[0].getCardNumber, card[0].getCardMark)
-    else
-      menu.showDealerDraw2ndCard()
-    end
-  end
-
-  def drawloopPlayer(user, menu, deck)
+    puts "何人でプレイしますか?(2または3または4を入力してください)"
     loop do
-      menu.showPlayerPoint(user.getUserPoint)
-      key = gets.chomp
-      if key == "Y"
-        drawCard(user, menu, deck, 1)
-      elsif key == "N"
+      @playernumber = gets.to_i
+      case @playernumber
+      when 2
+        puts "2"
+        break
+      when 3
+        puts "3"
+        break
+      when 4
+        puts "4"
         break
       else
-        menu.showCheckYesorNo()
+        puts "2または3または4を入力してください"
       end
     end
-  end
 
-  def drawloopDealer(user, deck)
-    loop do
-      if user.getUserPoint >= 17
-        break
-      else
-        card = deck.draw(1)
-        user.setUserCard(card)
-      end
-    end
-  end
+    @player1 = Player.new()
+    @playercpu2 = CPU.new()
+    @playercpu3 = CPU.new()
+    @dealer = Dealer.new()
 
-  def checklineover(user, menu, flg)
-    if user.getUserPoint >= 22
-      menu.showJudgeEndGame(flg)
-    end
-    menu.showPoint(user)
-  end
-
-  def compareFinalNumber(player, dealer)
-    player.getUserPoint >= dealer.getUserPoint
+    @menu = Menu.new()
+    @deck = Deck.new()
+    @deck.shuffle()
   end
 
   def main
-    menu = Menu.new()
-    deck = Deck.new()
-    player1 = Player.new()
-    dealer = Dealer.new()
-
-    deck.shuffle()
-
     # Playerのカードドロー
-    drawCard(player1, menu, deck, 1)
-    drawCard(player1, menu, deck, 1)
+    @player1.drawtwice(@menu, @deck)
+    @playercpu2.drawtwice(@menu, @deck) if @playernumber >= 3
+    @playercpu3.drawtwice(@menu, @deck) if @playernumber >= 4
 
-    # dealerのカードカードドロー
-    drawCard(dealer, menu, deck, 1)
-    drawCard(dealer, menu, deck, 1)
+    # Dealerのカードドロー
+    @dealer.drawtwice(@menu, @deck)
 
     # Playerが複数回カードドロー
-    drawloopPlayer(player1, menu, deck)
-    # Playerのポイントが21を超えた場合
-    checklineover(player1, menu, false)
+    @player1.drawloop(@menu, @deck)
+    @playercpu2.drawloop(@deck) if @playernumber >= 3
+    @playercpu3.drawloop(@deck) if @playernumber >= 4
 
-    # dealerが複数回カードドロー
-    drawloopDealer(dealer, deck)
-    # dealerのポイントが21を超えた場合
-    checklineover(dealer, menu, true)
+    # Dealerが複数回カードドロー
+    @dealer.drawloop(@deck)
 
-    menu.showPoint(player1)
-    menu.showPoint(dealer)
-    compareFinalNumber(player1, dealer) ? menu.showJudgeEndGame(true) : menu.showJudgeEndGame(false)
+    # PlayerとDealerの得点比較
+    @menu.showPoint(@player1)
+    @menu.showCPUPoint(@playercpu2) if @playernumber >= 3
+    @menu.showCPUPoint(@playercpu3) if @playernumber >= 4
+    @menu.showPoint(@dealer)
+    compareFinalPoint(@player1, @dealer)
+    compareFinalPoint(@playercpu2, @dealer) if @playernumber >= 3
+    compareFinalPoint(@playercpu3, @dealer) if @playernumber >= 4
+    @menu.showEndGame()
+  end
+
+  def compareFinalPoint(player, dealer)
+    if (dealer.getUserPoint >= 22 && player.getUserPoint <= 21) || (dealer.getUserPoint <= 21 && player.getUserPoint <= 21 && player.getUserPoint >= dealer.getUserPoint)
+      @menu.showJudgeEndGame(true, player)
+    else
+      @menu.showJudgeEndGame(false, player)
+    end
   end
 end
 
