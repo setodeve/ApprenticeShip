@@ -54,16 +54,20 @@ class User
     end
   end
 
+  def drawtwice(menu, deck)
+    2.times do
+      self.drawCard(menu, deck, 1)
+    end
+  end
+
   def drawCard(menu, deck, number)
     card = deck.draw(number)
     self.setUserCard(card)
-    menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
   end
 
   def checklineover(menu, flg)
     if self.getUserPoint >= 22
       menu.showJudgeEndGame(flg)
     end
-    menu.showPoint(self)
   end
 end

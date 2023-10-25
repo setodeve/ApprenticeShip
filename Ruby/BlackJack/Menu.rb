@@ -25,6 +25,10 @@ class Menu
     puts "#{checkUser(user.instance_of?(Player))}の得点は#{user.getUserPoint}です。"
   end
 
+  def showCPUPoint(user)
+    puts "プレイヤーCPUの得点は#{user.getUserPoint}です。"
+  end
+
   def showJudgeEndGame(checkGame)
     puts checkGame ? "あなたの勝ちです" : "あなたの負けです"
     showEndGame()
