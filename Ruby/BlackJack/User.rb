@@ -42,4 +42,28 @@ class User
       setUserPoint(10 * count)
     end
   end
+
+  def drawloop(deck)
+    loop do
+      if self.getUserPoint >= 17
+        break
+      else
+        card = deck.draw(1)
+        self.setUserCard(card)
+      end
+    end
+  end
+
+  def drawCard(menu, deck, number)
+    card = deck.draw(number)
+    self.setUserCard(card)
+    menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
+  end
+
+  def checklineover(menu, flg)
+    if self.getUserPoint >= 22
+      menu.showJudgeEndGame(flg)
+    end
+    menu.showPoint(self)
+  end
 end
