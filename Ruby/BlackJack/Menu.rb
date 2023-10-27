@@ -49,6 +49,10 @@ class Menu
     puts "ゲームを続けますか(Y/N)"
   end
 
+  def surrenderGame
+    puts "サレンダーしますか(Y/N)"
+  end
+
   def showEndGame
     puts "ブラックジャックを終了します。"
     # exit

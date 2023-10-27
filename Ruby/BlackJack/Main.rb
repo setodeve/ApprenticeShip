@@ -38,33 +38,39 @@ class Main
     loop do
       # Playerのカードドロー
       @player1.drawtwice(@menu, @deck)
-      @playercpu2.drawtwice(@menu, @deck) if @playernumber >= 3
-      @playercpu3.drawtwice(@menu, @deck) if @playernumber >= 4
+      @player1.surrenderGamebyPlayer(@menu)
+      # Playerがサレンダーした場合ゲームを終了させる
+      if @player1.getSurrenderFlg == false
+        @playercpu2.drawtwice(@menu, @deck) if @playernumber >= 3
+        @playercpu3.drawtwice(@menu, @deck) if @playernumber >= 4
 
-      # Dealerのカードドロー
-      @dealer.drawtwice(@menu, @deck)
+        # Dealerのカードドロー
+        @dealer.drawtwice(@menu, @deck)
 
-      # Playerが複数回カードドロー
-      @player1.drawloop(@menu, @deck)
+        # Playerが複数回カードドロー
+        @player1.drawloop(@menu, @deck)
 
-      # Playerの得点が21を超えた場合ゲーム終了させる
-      if @player1.getOverFlg == false
-        @playercpu2.drawloop(@deck) if @playernumber >= 3
-        @playercpu3.drawloop(@deck) if @playernumber >= 4
+        # Playerの得点が21を超えた場合ゲーム終了させる
+        if @player1.getOverFlg == false
+          @playercpu2.drawloop(@deck) if @playernumber >= 3
+          @playercpu3.drawloop(@deck) if @playernumber >= 4
 
-        # Dealerが複数回カードドロー
-        @dealer.drawloop(@deck)
+          # Dealerが複数回カードドロー
+          @dealer.drawloop(@deck)
 
-        # PlayerとDealerの得点比較
-        @menu.showPoint(@player1)
-        @menu.showCPUPoint(@playercpu2) if @playernumber >= 3
-        @menu.showCPUPoint(@playercpu3) if @playernumber >= 4
-        @menu.showPoint(@dealer)
-        compareFinalPoint(@player1, @dealer)
-        compareFinalPoint(@playercpu2, @dealer) if @playernumber >= 3
-        compareFinalPoint(@playercpu3, @dealer) if @playernumber >= 4
+          # PlayerとDealerの得点比較
+          @menu.showPoint(@player1)
+          @menu.showCPUPoint(@playercpu2) if @playernumber >= 3
+          @menu.showCPUPoint(@playercpu3) if @playernumber >= 4
+          @menu.showPoint(@dealer)
+          compareFinalPoint(@player1, @dealer)
+          compareFinalPoint(@playercpu2, @dealer) if @playernumber >= 3
+          compareFinalPoint(@playercpu3, @dealer) if @playernumber >= 4
+        else
+          compareFinalPoint(@player1, @dealer)
+        end
       else
-        compareFinalPoint(@player1, @dealer)
+        @menu.showJudgeEndGame(false, @player1)
       end
 
       loop do
@@ -82,7 +88,7 @@ class Main
           @menu.showEndGame()
           exit
         else
-          "Y/Nを入力してください"
+          menu.showCheckYesorNo
         end
       end
     end
