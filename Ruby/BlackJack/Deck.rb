@@ -15,6 +15,7 @@ class Deck < Card
         @deck.push(Card.new(num, mark))
       end
     end
+    shuffle()
   end
 
   def initializeDeck
