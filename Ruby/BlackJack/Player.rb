@@ -16,12 +16,13 @@ class Player < User
         menu.showCheckYesorNo()
       end
     end
-    self.checklineover(menu)
+    # self.checklineover(menu)
   end
 
   def drawCard(menu, deck, number)
     card = deck.draw(number)
     self.setUserCard(card)
     menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
+    self.checklineover(menu)
   end
 end

@@ -4,6 +4,7 @@ class User
   def initialize
     @cardonhand = Array.new(0)
     @point = 0
+    @bet = 0
   end
 
   def getUserCard
@@ -24,6 +25,11 @@ class User
   end
 
   def clearUserPoint
+    @point = 0
+  end
+
+  def clearUserInfo
+    @cardonhand = Array.new(0)
     @point = 0
   end
 

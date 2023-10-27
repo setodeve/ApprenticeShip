@@ -6,11 +6,19 @@ require "./Card"
 class Deck < Card
   def initialize
     @deck = Array.new(0)
+    generateDeck()
+  end
+
+  def generateDeck
     CARD_NUM.keys.each do |num|
       MARK.each do |mark|
         @deck.push(Card.new(num, mark))
       end
     end
+  end
+
+  def initializeDeck
+    @deck = Array.new(0)
   end
 
   def getDeckInfo
