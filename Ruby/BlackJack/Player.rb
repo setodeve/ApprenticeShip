@@ -10,7 +10,7 @@ class Player < User
       key = gets.chomp
       if key == "Y"
         drawCard(menu, deck, 1)
-        break if(@overflg)
+        break if @overflg
       elsif key == "N"
         break
       else
@@ -26,6 +26,4 @@ class Player < User
     menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
     self.checklineover(menu)
   end
-
-  
 end
