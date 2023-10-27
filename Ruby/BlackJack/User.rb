@@ -4,6 +4,7 @@ class User
   def initialize
     @cardonhand = Array.new(0)
     @point = 0
+    @money = 1000
     @bet = 0
     @overflg = false
     @surrenderflg = false
@@ -19,6 +20,26 @@ class User
 
   def getOverFlg
     @overflg
+  end
+
+  def getmoney
+    @money
+  end
+
+  def getbet
+    @bet
+  end
+
+  def setplusmoney(money)
+    @money+=money
+  end
+
+  def setminusmoney(money)
+    @money-=money
+  end
+
+  def setbet(bet)
+    @bet+=bet
   end
 
   def setOverFlg(flg)
