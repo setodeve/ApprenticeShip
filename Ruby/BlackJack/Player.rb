@@ -10,18 +10,34 @@ class Player < User
       key = gets.chomp
       if key == "Y"
         drawCard(menu, deck, 1)
+        break if @overflg
       elsif key == "N"
         break
       else
         menu.showCheckYesorNo()
       end
     end
-    self.checklineover(menu)
   end
 
   def drawCard(menu, deck, number)
     card = deck.draw(number)
     self.setUserCard(card)
     menu.showDrawCard(true, card[0].getCardNumber, card[0].getCardMark)
+    self.checklineover(menu)
+  end
+
+  def surrenderGamebyPlayer(menu)
+    loop do
+      menu.surrenderGame
+      key = gets.chomp
+      if key == "Y"
+        setSurrenderFlg(true)
+        break
+      elsif key == "N"
+        break
+      else
+        menu.showCheckYesorNo
+      end
+    end
   end
 end

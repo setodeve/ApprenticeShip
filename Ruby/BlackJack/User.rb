@@ -4,6 +4,9 @@ class User
   def initialize
     @cardonhand = Array.new(0)
     @point = 0
+    @bet = 0
+    @overflg = false
+    @surrenderflg = false
   end
 
   def getUserCard
@@ -12,6 +15,22 @@ class User
 
   def getUserPoint
     @point
+  end
+
+  def getOverFlg
+    @overflg
+  end
+
+  def setOverFlg(flg)
+    @overflg = flg
+  end
+
+  def getSurrenderFlg
+    @surrenderflg
+  end
+
+  def setSurrenderFlg(flg)
+    @surrenderflg = flg
   end
 
   def setUserCard(drawedcard)
@@ -25,6 +44,13 @@ class User
 
   def clearUserPoint
     @point = 0
+  end
+
+  def clearUserInfo
+    @cardonhand = Array.new(0)
+    @point = 0
+    @overflg = false
+    @surrenderflg = false
   end
 
   def calculate
@@ -67,8 +93,9 @@ class User
 
   def checklineover(menu)
     if self.getUserPoint >= 22
-      menu.showJudgeEndGame(false, self)
-      menu.showEndGame
+      setOverFlg(true)
+      menu.showOverPoint
+      # menu.showJudgeEndGame(false, self)
     end
   end
 end

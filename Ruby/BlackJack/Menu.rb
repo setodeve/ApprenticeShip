@@ -37,12 +37,24 @@ class Menu
     end
   end
 
+  def showOverPoint
+    puts "21点を超えました"
+  end
+
   def showCheckYesorNo
     puts "Y または N を入力してください"
   end
 
+  def continueGame
+    puts "ゲームを続けますか(Y/N)"
+  end
+
+  def surrenderGame
+    puts "サレンダーしますか(Y/N)"
+  end
+
   def showEndGame
     puts "ブラックジャックを終了します。"
-    exit
+    # exit
   end
 end
