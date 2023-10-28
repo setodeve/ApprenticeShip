@@ -61,7 +61,6 @@ class User
     if self.getUserPoint >= 22
       setOverFlg(true)
       menu.showOverPoint
-      # menu.showJudgeEndGame(false, self)
     end
   end
 end
