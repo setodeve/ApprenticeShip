@@ -1,56 +1,22 @@
 # frozen_string_literal: true
 
+require "./module/UserCommon"
+# frozen_string_literal: true
+
 class User
+  include UserCommon
   def initialize
     @cardonhand = Array.new(0)
     @point = 0
+    @money = 1000
     @bet = 0
     @overflg = false
     @surrenderflg = false
   end
 
-  def getUserCard
-    @cardonhand
-  end
-
-  def getUserPoint
-    @point
-  end
-
-  def getOverFlg
-    @overflg
-  end
-
-  def setOverFlg(flg)
-    @overflg = flg
-  end
-
-  def getSurrenderFlg
-    @surrenderflg
-  end
-
-  def setSurrenderFlg(flg)
-    @surrenderflg = flg
-  end
-
   def setUserCard(drawedcard)
     @cardonhand.push(drawedcard)
     calculate()
-  end
-
-  def setUserPoint(point)
-    @point += point
-  end
-
-  def clearUserPoint
-    @point = 0
-  end
-
-  def clearUserInfo
-    @cardonhand = Array.new(0)
-    @point = 0
-    @overflg = false
-    @surrenderflg = false
   end
 
   def calculate
