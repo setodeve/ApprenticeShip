@@ -31,6 +31,7 @@ class Player < User
       menu.surrenderGame
       key = gets.chomp
       if key == "Y"
+        self.setplusmoney((self.getbet / 2).round)
         setSurrenderFlg(true)
         break
       elsif key == "N"
