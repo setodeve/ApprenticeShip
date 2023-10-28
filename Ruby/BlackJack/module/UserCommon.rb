@@ -55,6 +55,7 @@ module UserCommon
   def clearUserInfo
     @cardonhand = Array.new(0)
     @point = 0
+    @bet = 0
     @overflg = false
     @surrenderflg = false
   end
