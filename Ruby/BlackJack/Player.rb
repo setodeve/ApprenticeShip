@@ -40,4 +40,25 @@ class Player < User
       end
     end
   end
+
+  def betmoney
+    money = self.getmoney
+    loop do
+      puts "いくらベットしますか。現在の所持金:#{money}"
+      input = gets.to_i
+      if money >= input
+        puts "#{input}をベットします"
+        self.setbet(input)
+        self.setminusmoney(input)
+        break
+      else
+        puts "所持金以内のベット額を入力してください"
+      end
+    end
+  end
+
+  def winGame
+    self.setplusmoney(self.getbet * 2)
+    puts "現在の所持金:#{self.getmoney}"
+  end
 end

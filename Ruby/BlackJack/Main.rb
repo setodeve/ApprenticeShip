@@ -36,6 +36,9 @@ class Main
 
   def main
     loop do
+      # Playerのベットタイミング
+      @player1.betmoney
+
       # Playerのカードドロー
       @player1.drawtwice(@menu, @deck)
       @player1.surrenderGamebyPlayer(@menu)
@@ -99,6 +102,7 @@ class Main
     dealerpoint = dealer.getUserPoint
     if (dealerpoint >= 22) || (dealerpoint <= 21 && playerpoint <= 21 && playerpoint >= dealerpoint)
       @menu.showJudgeEndGame(true, player)
+      player.winGame if player.instance_of?(Player)
     else
       @menu.showJudgeEndGame(false, player)
     end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "./module/UserCommon"
 # frozen_string_literal: true
 
