@@ -12,14 +12,7 @@ class Main
     loop do
       @playernumber = gets.to_i
       case @playernumber
-      when 2
-        puts "2"
-        break
-      when 3
-        puts "3"
-        break
-      when 4
-        puts "4"
+      when 2..4
         break
       else
         puts "2または3または4を入力してください"
