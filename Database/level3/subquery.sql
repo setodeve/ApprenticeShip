@@ -1,0 +1,5 @@
+select emp_no, salary from salaries where salary >= (select avg(salary) from salaries as sa where sa.emp_no >= 10001 and sa.emp_no <= 10010);
+select distinct emp_no, salary from salaries where salary >= (select avg(salary) from salaries as sa where sa.emp_no >= 10001 and sa.emp_no <= 10010)*2;
+select emp_no, max(salary) from salaries where salary >= (select avg(salary) from salaries where emp_no >= 10001 and emp_no <= 10010) group by emp_no ;
+select gender, emp_no, birth_date from employees where (birth_date = (select min(birth_date) from employees where gender="M") and gender="M") or (birth_date = (select min(birth_date) from employees where gender="F") and gender="F");
+select gender, emp_no, birth_date, first_name, last_name from employees where emp_no between 10100 and 10200 and ((birth_date = (select max(birth_date) from employees where gender="M") and gender="M") or (birth_date = (select max(birth_date) from employees where gender="F") and gender="F"));
