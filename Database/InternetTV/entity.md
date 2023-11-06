@@ -5,7 +5,7 @@
 
 ## program_slots
 - ID
-- program_id
+- episode_id
 - chanel_id
 - 開始時刻
 - 終了時刻
