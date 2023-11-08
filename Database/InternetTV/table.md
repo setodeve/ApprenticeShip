@@ -1,23 +1,25 @@
 ### programsテーブル
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
-|id|bigint(20)||PRIMARY||YES|
+|id|bigint||PRIMARY||YES|
 |title|varchar(100)|||||
 |season_id|varchar(100)|YES|INDEX|||
 
 ### program_slotsテーブル
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
-|id|bigint(20)||PRIMARY||YES|
-|title|varchar(100)|||||
-|episode_id|varchar(100)||INDEX|||
-|channel_id|varchar(100)||INDEX|||
+|id|bigint||PRIMARY||YES|
+|episode_id|bigint||INDEX|||
+|channel_id|bigint(20)||INDEX|||
+|start_time|datetime|||||
+|end_time|datetime|||||
+
 
 ### channelsテーブル
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
 |id|bigint(20)||PRIMARY||YES|
-|genre_id|varchar(100)||INDEX|||
+|genre_id|bigint(20)||INDEX|||
 |title|varchar(100)|||||
 
 ### genresテーブル
@@ -29,15 +31,14 @@
 ### seasonsテーブル
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
-|id|bigint(20)||PRIMARY||YES|
+|id|bigint||PRIMARY||YES|
 |season|bigint(20)|||||
 
 ### episodesテーブル
 |カラム名|データ型|NULL|キー|初期値|AUTO INCREMENT|
 | ---- | ---- | ---- | ---- | ---- | ---- |
-|id|bigint(20)||PRIMARY||YES|
-|season_id|varchar(100)||INDEX|||
-|program_id|varchar(100)||INDEX|||
+|id|bigint||PRIMARY||YES|
+|program_id|bigint||INDEX|||
 |episode_number|bigint(20)|||||
 |episode_detail|text|||||
 |time|date|||||
