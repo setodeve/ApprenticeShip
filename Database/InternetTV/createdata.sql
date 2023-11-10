@@ -62,7 +62,8 @@ INSERT INTO Episodes (program_id, episode_no, episode_title, episode_detail, epi
     (17, 3, 'Saturday Night Live', 'Iconic sketch comedy show', 60, '2023-11-17 22:30:00', 13000),
     (18, 3, 'Bank Rupt', 'Mockumentary sitcom at a paper company', 30, '2023-11-18 19:45:00', 11000),
     (19, 3, 'Luffy will die', 'Pirate adventures in a vast world', 35, '2023-11-19 18:00:00', 12000),
-    (20, 3, 'Formula 1 Grand Prix', 'High-speed racing in the Formula 1 championship', 120, '2023-11-20 14:00:00', 20000);
+    (20, 3, 'Formula 1 Grand Prix', 'High-speed racing in the Formula 1 championship', 120, '2023-11-20 14:00:00', 20000),
+    (21, 1, 'The Game of Thrones Real Finale', 'End Epic fantasy battles for the Iron Throne', 60, '2023-11-04 22:00:00', 18000);
 
 -- 番組枠テーブルにデータ挿入
 INSERT INTO TimeSlots (episode_id, channel_id, start_time, end_time) VALUES
