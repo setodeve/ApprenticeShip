@@ -34,6 +34,7 @@ CREATE TABLE Episodes (
     program_id bigint,
     FOREIGN KEY (program_id) REFERENCES Programs(id),
     episode_no int NOT NULL,
+    episode_title varchar(300) NOT NULL,
     episode_detail text NOT NULL,
     episode_time int NOT NULL,
     opened_at DATETIME NOT NULL,
