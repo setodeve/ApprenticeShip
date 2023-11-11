@@ -1,3 +1,5 @@
+USE internetTV;
+
 -- ジャンルテーブルにデータ挿入
 INSERT INTO Genres (genre) VALUES
     ('ドラマ'),
