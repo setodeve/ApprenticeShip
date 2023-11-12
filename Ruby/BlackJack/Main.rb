@@ -8,17 +8,18 @@ require "./Dealer"
 
 class Main
   def initialize
-    puts "何人でプレイしますか?(2または3または4を入力してください)"
+    puts "CPUを何人追加しますか?(0~3を入力してください)"
     loop do
       @playernumber = gets.to_i
       case @playernumber
-      when 2..4
+      when 0..3
         break
       else
         puts "2または3または4を入力してください"
       end
     end
     @player1 = Player.new()
+    @playercpu1 = CPU.new()
     @playercpu2 = CPU.new()
     @playercpu3 = CPU.new()
     @dealer = Dealer.new()
@@ -30,15 +31,16 @@ class Main
   def main
     loop do
       # Playerのベットタイミング
-      @player1.betmoney
+      @player1.bet
 
       # Playerのカードドロー
       @player1.drawtwice(@menu, @deck)
-      @player1.surrenderGamebyPlayer(@menu)
+      @player1.surrender(@menu)
       # Playerがサレンダーした場合ゲームを終了させる
       if @player1.getSurrenderFlg == false
-        @playercpu2.drawtwice(@menu, @deck) if @playernumber >= 3
-        @playercpu3.drawtwice(@menu, @deck) if @playernumber >= 4
+        @playercpu1.drawtwice(@menu, @deck) if @playernumber >= 1
+        @playercpu2.drawtwice(@menu, @deck) if @playernumber >= 2
+        @playercpu3.drawtwice(@menu, @deck) if @playernumber >= 3
 
         # Dealerのカードドロー
         @dealer.drawtwice(@menu, @deck)
@@ -48,20 +50,23 @@ class Main
 
         # Playerの得点が21を超えた場合ゲーム終了させる
         if @player1.getOverFlg == false
-          @playercpu2.drawloop(@deck) if @playernumber >= 3
-          @playercpu3.drawloop(@deck) if @playernumber >= 4
-
+          @playercpu1.drawloop(@deck) if @playernumber >= 1
+          @playercpu2.drawloop(@deck) if @playernumber >= 2
+          @playercpu3.drawloop(@deck) if @playernumber >= 3
+          
           # Dealerが複数回カードドロー
           @dealer.drawloop(@deck)
 
           # PlayerとDealerの得点比較
           @menu.showPoint(@player1)
-          @menu.showCPUPoint(@playercpu2) if @playernumber >= 3
-          @menu.showCPUPoint(@playercpu3) if @playernumber >= 4
+          @menu.showCPUPoint(@playercpu1) if @playernumber >= 1
+          @menu.showCPUPoint(@playercpu2) if @playernumber >= 2
+          @menu.showCPUPoint(@playercpu3) if @playernumber >= 3
           @menu.showPoint(@dealer)
           compareFinalPoint(@player1, @dealer)
-          compareFinalPoint(@playercpu2, @dealer) if @playernumber >= 3
-          compareFinalPoint(@playercpu3, @dealer) if @playernumber >= 4
+          compareFinalPoint(@playercpu1, @dealer) if @playernumber >= 1
+          compareFinalPoint(@playercpu2, @dealer) if @playernumber >= 2
+          compareFinalPoint(@playercpu3, @dealer) if @playernumber >= 3
         else
           compareFinalPoint(@player1, @dealer)
         end
