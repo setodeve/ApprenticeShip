@@ -26,7 +26,7 @@ class Player < User
     self.checklineover(menu)
   end
 
-  def surrenderGamebyPlayer(menu)
+  def surrender(menu)
     loop do
       menu.surrenderGame
       key = gets.chomp
@@ -42,7 +42,7 @@ class Player < User
     end
   end
 
-  def betmoney
+  def bet
     money = self.getmoney
     loop do
       puts "いくらベットしますか。現在の所持金:#{money}"
