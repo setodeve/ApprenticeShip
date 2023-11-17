@@ -12,14 +12,14 @@ event_form.addEventListener("submit", {
   handleEvent: (event: SubmitEvent) => {
     event.stopPropagation();
     event.preventDefault();
-    
+
     const h2_posts = document.createElement("h2");
     const p_posts = document.createElement("p");
     const div_post = document.createElement("div");
-    
+
     h2_posts.textContent = event.target[0].form[0].value;
     p_posts.textContent = event.target[0].form[1].value;
-    
+
     div_post?.appendChild(h2_posts);
     div_post?.appendChild(p_posts);
     div_posts?.appendChild(div_post);
