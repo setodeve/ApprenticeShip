@@ -4,7 +4,7 @@ const digit_button = document.getElementsByClassName("digit");
 for (let i = 0; i < digit_button.length; i++) {
   digit_button[i].addEventListener("click", {
     handleEvent: () => {
-      result.id = "result"
+      result.id = "result";
       result.innerHTML += digit_button[i].innerHTML;
       display?.appendChild(result);
     },
