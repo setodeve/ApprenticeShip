@@ -4,28 +4,21 @@ require "./Card"
 # frozen_string_literal: true
 
 class Deck < Card
+  attr_accessor(:deck)
   def initialize
     @deck = Array.new(0)
     generate()
   end
 
-  def generate
-    CARD_NUM.keys.each do |num|
-      MARK.each do |mark|
-        @deck.push(Card.new(num, mark))
-      end
+  def draw(time)
+    cards = Array.new(0)
+    time.times do |i|
+      cards << @deck.pop()
     end
-    shuffle()
+    cards
   end
 
-  def initializeDeck
-    @deck = Array.new(0)
-  end
-
-  def getDeckInfo
-    @deck
-  end
-
+private
   def shuffle
     1.upto(1000) do |n|
       r1 = rand(0..51)
@@ -34,11 +27,12 @@ class Deck < Card
     end
   end
 
-  def draw(time)
-    cards = Array.new(0)
-    time.times do
-      cards.push(@deck.pop())
+  def generate
+    NUM.keys.each do |num|
+      MARK.each do |mark|
+        @deck.push(Card.new(num, mark))
+      end
     end
-    cards
+    shuffle()
   end
 end
