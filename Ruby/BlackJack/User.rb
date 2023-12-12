@@ -1,24 +1,52 @@
 # frozen_string_literal: true
 
-require "./module/UserCommon"
 require "./Card"
 # frozen_string_literal: true
 
 class User
-  attr_accessor(:hand, :point, :name)
-  include UserCommon
+  attr_accessor(:hand, :point, :name, :bustFlg)
   def initialize(name)
     @hand = Array.new(0)
     @point = 0
     @name = name
+    @bustFlg = false
   end
 
   def drawCard(deck, number)
     @hand.concat(deck.draw(number))
     self.calculate()
+    self.isBust()
   end
-  
+
+  def drawFirstCard(deck, number)
+    self.drawCard(deck, number)
+    self.showAllCard
+  end
+
+  def drawLoopCard(deck)
+    loop do
+      if self.point >= 17
+        break
+      else
+        self.drawCard(deck, 1)
+      end
+    end
+  end
+
+  def clearUser
+    @hand = Array.new(0)
+    @point = 0
+    @bustFlg = false
+  end
+
 private
+  def showAllCard
+    @hand.each do |card|
+      puts "#{@name}が引いたカードは#{card.mark}#{card.num}です。"
+    end
+    puts "#{@name}の現在のポイントは#{@point}です。"
+  end
+
   def calculate
     count = 0
     @point = 0
@@ -35,32 +63,10 @@ private
     end
   end
 
-  # def drawloop(deck)
-  #   loop do
-  #     if self.getUserPoint >= 17
-  #       break
-  #     else
-  #       card = deck.draw(1)
-  #       self.setUserCard(card)
-  #     end
-  #   end
-  # end
-
-  # def drawtwice(menu, deck)
-  #   2.times do
-  #     self.drawCard(menu, deck, 1)
-  #   end
-  # end
-
-  # def drawCard(menu, deck, number)
-  #   card = deck.draw(number)
-  #   self.setUserCard(card)
-  # end
-
-  # def checklineover(menu)
-  #   if self.getUserPoint >= 22
-  #     setOverFlg(true)
-  #     menu.showOverPoint
-  #   end
-  # end
+  def isBust
+    if @point >= 22
+      puts "#{self.name}バーストしました。"
+      @bustFlg = true
+    end
+  end
 end

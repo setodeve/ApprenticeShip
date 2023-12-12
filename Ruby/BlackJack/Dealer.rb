@@ -18,14 +18,4 @@ private
     puts "#{self.name}が引いたカードは#{@hand[0].mark}#{@hand[0].num}です。"
     puts "Dealerの2枚目のカードはわかりません。"
   end
-
-  # def drawCard(menu, deck, number)
-  #   card = deck.draw(number)
-  #   self.setUserCard(card)
-  #   if self.getUserCard.length() <= 1
-  #     menu.showDrawCard(false, card[0].getCardNumber, card[0].getCardMark)
-  #   else
-  #     menu.showDealerDraw2ndCard()
-  #   end
-  # end
 end
