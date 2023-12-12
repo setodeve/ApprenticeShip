@@ -8,20 +8,4 @@ class Card
     @num = n
     @mark = s
   end
-
-  # def getCardInfo
-  #   [@num, @mark]
-  # end
-
-  # def getCardNumber
-  #   @num
-  # end
-
-  # def getCardMark
-  #   @mark
-  # end
-
-  # def getConstantCardNumber
-  #   CARD_NUM
-  # end
 end

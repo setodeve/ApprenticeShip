@@ -10,14 +10,6 @@ class Deck < Card
     generate()
   end
 
-  # def initializeDeck
-  #   @deck = Array.new(0)
-  # end
-
-  # def getDeckInfo
-  #   @deck
-  # end
-
   def draw(time)
     cards = Array.new(0)
     time.times do |i|
