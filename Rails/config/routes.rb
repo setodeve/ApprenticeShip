@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
+  resources :articles
   resources :users
-  # resources :articles
   # root "articles#index"
 end
