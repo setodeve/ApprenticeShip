@@ -7,6 +7,7 @@ COPY Gemfile.lock /conduit/Gemfile.lock
 
 RUN gem update --system
 RUN bundle update --bundler
+# RUN apt-get -y install imagemagick
 
 RUN bundle install
 COPY . /conduit

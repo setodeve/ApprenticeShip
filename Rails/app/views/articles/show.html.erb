@@ -4,7 +4,9 @@
       <h1>How to build webapps that scale</h1>
 
       <div class="article-meta">
-        <a href="/profile/eric-simons"><img src="http://i.imgur.com/Qr71crq.jpg" /></a>
+        <a href="/profile/eric-simons">
+          <%= image_tag @user.image, class:"comment-author-img" if @user.image.attached?%>
+        </a>
         <div class="info">
           <a href="/profile/eric-simons" class="author">Eric Simons</a>
           <span class="date">January 20th</span>

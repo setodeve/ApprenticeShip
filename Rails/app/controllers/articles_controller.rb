@@ -61,10 +61,11 @@ class ArticlesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_article
       @article = Article.find(params[:id])
+      @user = User.find(@article.user_id)
     end
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :content, :image, :user_id)
+      params.require(:article).permit(:title, :content, :user_id)
     end
 end
