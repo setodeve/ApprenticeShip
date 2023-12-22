@@ -1,6 +1,3 @@
-<% content_for :head do %>
-  <%= javascript_import_module_tag "tag" %>
-<% end %>
 <div class="editor-page">
   <div class="container page">
     <div class="row">
@@ -25,7 +22,7 @@
                 </datalist>
                 <div id="tag-list" class="tag-list">
                   <% @article.tags.each do |tag|%>
-                    <span class="tag-default tag-pill"> 
+                    <span class="tag-default tag-pill tag-event"> 
                       <i class="ion-close"></i> 
                       <%= tag.name %>
                       <input name="article[tag_ids][]" value=<%= tag.id %> autocomplete="off" type="hidden" id="tag_ids">
@@ -37,8 +34,10 @@
               <%= form.button "Publish Article", class: "btn btn-lg pull-xs-right btn-primary", type: "submit" %>
           </fieldset>
         <% end %>
-
       </div>
     </div>
   </div>
 </div>
+<% content_for :head do %>
+  <%= javascript_import_module_tag "tag" %>
+<% end %>
