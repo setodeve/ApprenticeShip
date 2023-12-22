@@ -25,7 +25,7 @@ class ArticlesController < ApplicationController
   def create
     @article = Article.new(article_params)
     @tags = Tag.all
-    puts article_params
+    create_tag()
     respond_to do |format|
       if @article.save
         format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
@@ -39,6 +39,7 @@ class ArticlesController < ApplicationController
 
   # PATCH/PUT /articles/1 or /articles/1.json
   def update
+    create_tag()
     respond_to do |format|
       if @article.update(article_params)
         format.html { redirect_to article_url(@article), notice: "Article was successfully updated." }
@@ -71,5 +72,11 @@ class ArticlesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def article_params
       params.require(:article).permit(:title, :content, :user_id,  tag_ids: [])
+    end
+
+    def create_tag()
+      params[:tag_names].each do |name|
+        Tag.create!(name:name) if(!Tag.exists?(name:name))
+      end
     end
 end

@@ -17,10 +17,10 @@
                 <%= form.text_area :content, class: "form-control", rows: 8, placeholder: "Write your article (in markdown)" %>
               </div>
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Enter tags" autocomplete="on" list="tags" id="tag-input" name="test" />
-                <datalist id="tags">
+                <input type="text" class="form-control" placeholder="Enter tags" autocomplete="on" list="tag-data-list" id="tag-input"/>
+                <datalist id="tag-data-list">
                   <% @tags.each do |tag| %>
-                    <option value="<%= tag.id %>,<%= tag.name %>"></option>
+                    <option value="<%= tag.id %>,<%= tag.name %>" class="tag-option"></option>
                   <% end %>
                 </datalist>
                 <div id="tag-list" class="tag-list">
