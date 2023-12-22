@@ -27,13 +27,13 @@
               </a>
               <div class="info">
                 <a href="/profile/eric-simons" class="author"><%= article.user.name %></a>
-                <span class="date">January 20th</span>
+                <span class="date"><%= article.created_at.strftime('%B %d')%></span>
               </div>
               <button class="btn btn-outline-primary btn-sm pull-xs-right">
                 <i class="ion-heart"></i> 29
               </button>
             </div>
-            <a href="/article/how-to-build-webapps-that-scale" class="preview-link">
+            <%= link_to article_path(article.id), class: "preview-link" do %>
               <h1><%= article.title %></h1>
               <p><%= article.content %></p>
               <span>Read more...</span>
@@ -42,7 +42,7 @@
                   <li class="tag-default tag-pill tag-outline"><%= tag.name %></li>
                 <% end %>
               </ul>
-            </a>
+            <% end %>
           </div>
         <% end %>
         <%# <ul class="pagination">

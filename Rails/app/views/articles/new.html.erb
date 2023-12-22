@@ -1,9 +1,34 @@
-<h1>New article</h1>
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <ul class="error-messages">
+          <%# <li>That title is required</li> %>
+        </ul>
+        <%= form_with(model: @article, local: true) do |form| %>
+          <fieldset>
+              <div class="form-group">
+                <%= form.text_field :title, class: "form-control form-control-lg", placeholder: "Article Title" %>
+              </div>
+              <div class="form-group">
+                <%= form.text_area :content, class: "form-control", rows: 8, placeholder: "Write your article (in markdown)" %>
+              </div>
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Enter tags" autocomplete="on" list="tags" id="tag-input" name="test" />
+                <datalist id="tags">
+                  <% @tags.each do |tag| %>
+                    <option value="<%= tag.id %>,<%= tag.name %>"></option>
+                  <% end %>
+                </datalist>
+                <div id="tag-list" class="tag-list">
+                </div>
+              </div>
+              <input name="article[user_id]" value="1" type="hidden">
+              <%= form.button "Publish Article", class: "btn btn-lg pull-xs-right btn-primary", type: "submit" %>
+          </fieldset>
+        <% end %>
 
-<%= render "form", article: @article %>
-
-<br>
-
-<div>
-  <%= link_to "Back to articles", articles_path %>
+      </div>
+    </div>
+  </div>
 </div>

@@ -14,6 +14,7 @@ class ArticlesController < ApplicationController
   # GET /articles/new
   def new
     @article = Article.new
+    @tags = Tag.all
   end
 
   # GET /articles/1/edit
@@ -23,7 +24,8 @@ class ArticlesController < ApplicationController
   # POST /articles or /articles.json
   def create
     @article = Article.new(article_params)
-
+    @tags = Tag.all
+    puts article_params
     respond_to do |format|
       if @article.save
         format.html { redirect_to article_url(@article), notice: "Article was successfully created." }
@@ -63,10 +65,11 @@ class ArticlesController < ApplicationController
     def set_article
       @article = Article.find(params[:id])
       @user = User.find(@article.user_id)
+      @tags = Tag.all
     end
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :content, :user_id,  { tag_ids: [] })
+      params.require(:article).permit(:title, :content, :user_id,  tag_ids: [])
     end
 end
