@@ -9,10 +9,13 @@
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+    <%= yield :head %>
   </head>
   <nav class="navbar navbar-light">
     <div class="container">
-      <a class="navbar-brand" href="/">conduit</a>
+      <%= link_to articles_path, class: "navbar-brand", method: :get do %>
+        conduit
+      <%end%>
       <ul class="nav navbar-nav pull-xs-right">
         <li class="nav-item">
           <!-- Add "active" class when you're on that page" -->

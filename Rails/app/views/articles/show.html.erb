@@ -20,7 +20,7 @@
           <i class="ion-heart"></i>
           &nbsp; Favorite Post <span class="counter">(29)</span>
         </button>
-        <%= button_to edit_article_path(@article.id), class:"btn btn-sm btn-outline-secondary" do%>
+        <%= button_to edit_article_path(@article.id), class:"btn btn-sm btn-outline-secondary", method: :get do%>
           <i class="ion-edit"></i> Edit Article
         <% end %>
         <%= button_to article_path(@article.id), class:"btn btn-sm btn-outline-danger",method: :delete do%>
@@ -65,7 +65,7 @@
           <i class="ion-heart"></i>
           &nbsp; Favorite Article <span class="counter">(29)</span>
         </button>
-        <%= button_to edit_article_path(@article.id), class:"btn btn-sm btn-outline-secondary" do%>
+        <%= button_to edit_article_path(@article.id), class:"btn btn-sm btn-outline-secondary", method: :get do%>
           <i class="ion-edit"></i> Edit Article
         <% end %>
         <%= button_to article_path(@article.id), class:"btn btn-sm btn-outline-danger",method: :delete do%>
