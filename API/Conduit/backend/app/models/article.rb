@@ -4,8 +4,8 @@ class Article < ApplicationRecord
   belongs_to :user
   # has_and_belongs_to_many :tags
 
-  def as_json()
-    super.merge({
+  def render_json()
+    self.as_json.merge({
       slug: self.title.downcase.sub(" ","-").concat(self.id),
       author: user,
       tagList: tags.pluck(:name)

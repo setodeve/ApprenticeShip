@@ -61,7 +61,7 @@ class Api::ArticlesController < ApplicationController
     end
 
     def render_article
-      render json: { article: @article.as_json }
+      render json: { article: @article.render_json }
     end
   
 end
