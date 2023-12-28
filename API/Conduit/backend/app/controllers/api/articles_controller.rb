@@ -19,9 +19,9 @@ class Api::ArticlesController < ApplicationController
 
   def create
     @article = Article.new(article_params.except(:tagList))
-    @article.tags = self.create_tag(article_params["tagList"])
     if @article.save
-      render json: {"article": @article}
+      @article.tags = self.create_tag(article_params[:tagList])
+      render_article()
     else
       render json: @article.errors, status: :unprocessable_entity
     end
@@ -29,9 +29,9 @@ class Api::ArticlesController < ApplicationController
 
   def update
     @article = Article.new(article_params.except(:tagList))
-    @article.tags = self.create_tag(article_params["tagList"])
     if @article.update(article_params)
-      render json: {"article": @article}
+      @article.tags = self.create_tag(article_params[:tagList])
+      render_article()
     else
       render json: @article.errors, status: :unprocessable_entity
     end
@@ -48,7 +48,7 @@ class Api::ArticlesController < ApplicationController
     end
 
     def article_params
-      params.require(:article).permit(:title, :body, :description, tagList: [])
+      params.require(:article).permit(:title, :body, :description, :user_id, tagList: [])
     end
 
     def create_tag(tags)
@@ -60,5 +60,8 @@ class Api::ArticlesController < ApplicationController
       return list
     end
 
-
+    def render_article
+      render json: { article: @article.as_json }
+    end
+  
 end

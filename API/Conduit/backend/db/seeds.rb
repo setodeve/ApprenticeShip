@@ -6,6 +6,13 @@ end
 
 5.times do |n|
 
+  user = User.create!(
+    email: "test#{n + 1}@test.com",
+    name: "テスト太郎#{n + 1}",
+    password: "foobar",
+    password_confirmation: "foobar"
+  )
+
   savetag = []
   2.times do
     tag = Tag.find(rand(1..tags.length)).id
@@ -18,6 +25,7 @@ end
     title: 'タイトル',
     description: 'descriptiondescription',
     body: 'テキストテキストテキストテキスト',
+    user_id: user.id,
     tag_ids: savetag
   )
 end
