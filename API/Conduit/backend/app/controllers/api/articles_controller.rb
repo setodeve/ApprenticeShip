@@ -3,7 +3,7 @@ class Api::ArticlesController < ApplicationController
 
   def index
     @articles = Article.all
-    @tags = Tag.limit(5)
+    render json: {"articles": @articles, 'articlesCount': @articles.count}
   end
 
   def show
@@ -18,25 +18,23 @@ class Api::ArticlesController < ApplicationController
   end
 
   def create
-    @article = Article.new(article_params)
-    @tags = Tag.all
-    create_tag()
-    respond_to do |format|
-      if @article.save
-        render status: :created, location: @article
-      else
-        render json: @article.errors, status: :unprocessable_entity
-      end
+    @article = Article.new(article_params.except(:tagList))
+    @article.tags = self.create_tag(article_params["tagList"])
+    if @article.save
+      render json: {"article": @article}
+    else
+      render json: @article.errors, status: :unprocessable_entity
     end
   end
 
   def update
-    create_tag()
-      if @article.update(article_params)
-        render status: :ok
-      else
-        render json: @article.errors, status: :unprocessable_entity
-      end
+    @article = Article.new(article_params.except(:tagList))
+    @article.tags = self.create_tag(article_params["tagList"])
+    if @article.update(article_params)
+      render json: {"article": @article}
+    else
+      render json: @article.errors, status: :unprocessable_entity
+    end
   end
 
   def destroy
@@ -46,17 +44,21 @@ class Api::ArticlesController < ApplicationController
   private
     def set_article
       @article = Article.find(params[:id])
-      @user = User.find(@article.user_id)
       @tags = Tag.all
     end
 
     def article_params
-      params.require(:article).permit(:title, :content, :user_id,  tagList: [])
+      params.require(:article).permit(:title, :body, :description, tagList: [])
     end
 
-    def create_tag
-      params[:tagList].each do |name|
-        Tag.create!(name:name) if(!Tag.exists?(name:name))
+    def create_tag(tags)
+      list = []
+      tags.each do |name|
+        tag = Tag.find_or_create_by(name:name)
+        list << tag
       end
+      return list
     end
+
+
 end
