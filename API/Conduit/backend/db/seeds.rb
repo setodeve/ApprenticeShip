@@ -21,13 +21,16 @@ end
     end
   end
 
-  Article.create!(
+  article = Article.create(
     title: 'タイトル',
+    slug: '',
     description: 'descriptiondescription',
     body: 'テキストテキストテキストテキスト',
     user_id: user.id,
     tag_ids: savetag
   )
+  article.slug = article.title.downcase.gsub(" ","-")+"-"+String(article.id)
+  article.save
 end
 
 # rails db:migrate:reset

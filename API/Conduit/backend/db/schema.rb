@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_12_28_205350) do
+ActiveRecord::Schema[7.0].define(version: 2023_12_29_122826) do
   create_table "article_tags", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "article_id", null: false
     t.bigint "tag_id", null: false
@@ -27,6 +27,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_12_28_205350) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id"
+    t.string "slug"
+    t.index ["slug"], name: "index_articles_on_slug"
     t.index ["user_id"], name: "index_articles_on_user_id"
   end
 

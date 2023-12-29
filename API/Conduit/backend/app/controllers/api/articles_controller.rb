@@ -2,25 +2,36 @@ class Api::ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
 
   def index
-    @articles = Article.all
-    render json: {"articles": @articles, 'articlesCount': @articles.count}
+    list = []
+    if params[:author]
+      @articles = Article.fitler_by_user(params[:author])
+    elsif params[:tag]
+      @articles = Article.fitler_by_tag(params[:tag])
+    else
+      @articles = Article.all
+    end
+    @articles.each do |a|
+      list << a.render_json
+    end
+    render json: {"articles": list, 'articlesCount': @articles.count}
   end
 
   def show
+    render_article()
   end
 
   def new
     @article = Article.new
-    @tags = Tag.all
   end
 
   def edit
   end
 
   def create
-    @article = Article.new(article_params.except(:tagList))
+    @article = Article.create(article_params.except(:tagList))
+    @article.slug = @article.title.downcase.gsub(" ","-")+"-"+String(@article.id)
     if @article.save
-      @article.tags = self.create_tag(article_params[:tagList])
+      @article.tags = self.create_tag(article_params[:tagList])if !(article_params[:tagList].nil?)
       render_article()
     else
       render json: @article.errors, status: :unprocessable_entity
@@ -28,9 +39,10 @@ class Api::ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.new(article_params.except(:tagList))
+    @article = Article.find_by(slug:params[:id])
+    @article.slug = @article.title.downcase.gsub(" ","-")+"-"+String(@article.id)
     if @article.update(article_params)
-      @article.tags = self.create_tag(article_params[:tagList])
+      @article.tags = self.create_tag(article_params[:tagList]) if !(article_params[:tagList].nil?)
       render_article()
     else
       render json: @article.errors, status: :unprocessable_entity
@@ -38,17 +50,17 @@ class Api::ArticlesController < ApplicationController
   end
 
   def destroy
+    @article = Article.find_by(slug:params[:id])
     @article.destroy
   end
 
   private
     def set_article
-      @article = Article.find(params[:id])
-      @tags = Tag.all
+      @article = Article.find_by(slug:params[:id])
     end
 
     def article_params
-      params.require(:article).permit(:title, :body, :description, :user_id, tagList: [])
+      params.require(:article).permit(:title, :slug, :body, :description, :user_id, tagList: [])
     end
 
     def create_tag(tags)
@@ -58,6 +70,14 @@ class Api::ArticlesController < ApplicationController
         list << tag
       end
       return list
+    end
+
+    def render_articles()
+      list = []
+      @articles.each do |article|
+        
+      end
+      render json: { article: @articles.render_json }
     end
 
     def render_article
