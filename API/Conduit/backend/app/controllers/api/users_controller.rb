@@ -1,7 +1,7 @@
 class Api::UsersController < ApplicationController
   def show
-    @user = User.find(params[:id])
-    render json: { status: 'success', data: @user }
+    @user = user_confirmation()
+    render json: { status: 'success', user: @user, token: encrypt(@user) }
   end
 
   def new
@@ -11,16 +11,25 @@ class Api::UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      reset_session
-      log_in @user
-      render json: {status: 'success', data: {user: @user} }
+      render json: {status: 'success', user: @user, token: encrypt(@user) }
     else
-      render json: {status: :unprocessable_entity, data: @user }
+      render json: {status: :unprocessable_entity, user: @user }
+    end
+  end
+
+  def edit
+  end
+
+  def update
+    @user = user_confirmation()
+    if @user.update(user_params)
+      render json: {status: 'success', user: @user, token: encrypt(@user) }
+    else
+      render json: {status: :unprocessable_entity, user: @user }
     end
   end
 
   private
-
     def user_params
       params.require(:user).permit(:name, :email, :password, :password_confirmation)
     end
