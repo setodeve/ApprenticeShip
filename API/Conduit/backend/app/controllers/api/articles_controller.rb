@@ -29,7 +29,7 @@ class Api::ArticlesController < ApplicationController
 
   def create
     @article = Article.create(article_params.except(:tagList))
-    @article.slug = @article.title.downcase.gsub(" ","-")+"-"+String(@article.id)
+    @article.slug = @article.title.parameterize+"-"+String(@article.id)
     if @article.save
       @article.tags = self.create_tag(article_params[:tagList])if !(article_params[:tagList].nil?)
       render_article()
@@ -39,8 +39,7 @@ class Api::ArticlesController < ApplicationController
   end
 
   def update
-    @article = Article.find_by(slug:params[:id])
-    @article.slug = @article.title.downcase.gsub(" ","-")+"-"+String(@article.id)
+    @article.slug = @article.title.parameterize+"-"+String(@article.id)
     if @article.update(article_params)
       @article.tags = self.create_tag(article_params[:tagList]) if !(article_params[:tagList].nil?)
       render_article()
@@ -50,7 +49,6 @@ class Api::ArticlesController < ApplicationController
   end
 
   def destroy
-    @article = Article.find_by(slug:params[:id])
     @article.destroy
   end
 
@@ -70,14 +68,6 @@ class Api::ArticlesController < ApplicationController
         list << tag
       end
       return list
-    end
-
-    def render_articles()
-      list = []
-      @articles.each do |article|
-        
-      end
-      render json: { article: @articles.render_json }
     end
 
     def render_article

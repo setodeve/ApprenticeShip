@@ -29,7 +29,7 @@ end
     user_id: user.id,
     tag_ids: savetag
   )
-  article.slug = article.title.downcase.gsub(" ","-")+"-"+String(article.id)
+  article.slug = article.title.parameterize+"-"+String(article.id)
   article.save
 end
 
