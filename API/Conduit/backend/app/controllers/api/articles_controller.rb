@@ -23,6 +23,8 @@ class Api::ArticlesController < ApplicationController
 
   def new
     if !@current_user
+      render json: {}, status: 401
+    else
       @article = Article.new
     end
   end
@@ -30,6 +32,8 @@ class Api::ArticlesController < ApplicationController
   def edit
     if !@current_user && (@current_user.id == @article.user_id) 
       render json: {}, status: 401
+    else
+      render_article()
     end
   end
 

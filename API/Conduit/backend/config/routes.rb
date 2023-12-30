@@ -3,6 +3,7 @@ Rails.application.routes.draw do
     post   "/users/login",   to: "sessions#create"
     get   "/user",   to: "users#show"
     put   "/user",   to: "users#update"
+    get   "/articles/:id/edit",   to: "articles#edit"
     resources :articles
     resources :tags
     resources :users
