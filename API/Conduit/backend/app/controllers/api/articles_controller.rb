@@ -1,5 +1,6 @@
 class Api::ArticlesController < ApplicationController
   before_action :set_article, only: %i[ show edit update destroy ]
+  before_action :check_current_user, except: %i[ index show ]
 
   def index
     list = []
@@ -21,35 +22,52 @@ class Api::ArticlesController < ApplicationController
   end
 
   def new
-    @article = Article.new
+    if !@current_user
+      @article = Article.new
+    end
   end
 
   def edit
+    if !@current_user && (@current_user.id == @article.user_id) 
+      render json: {}, status: 401
+    end
   end
 
   def create
-    @article = Article.create(article_params.except(:tagList))
-    @article.slug = @article.title.parameterize+"-"+String(@article.id)
-    if @article.save
-      @article.tags = self.create_tag(article_params[:tagList])if !(article_params[:tagList].nil?)
-      render_article()
+    if !@current_user
+      render json: {}, status: 401
     else
-      render json: @article.errors, status: :unprocessable_entity
+      @article = Article.create(article_params.except(:tagList))
+      create_slug()
+      if @article.save
+        @article.tags = self.create_tag(article_params[:tagList]) if !(article_params[:tagList].nil?)
+        render_article()
+      else
+        render json: @article.errors, status: :unprocessable_entity
+      end
     end
   end
 
   def update
-    @article.slug = @article.title.parameterize+"-"+String(@article.id)
-    if @article.update(article_params)
-      @article.tags = self.create_tag(article_params[:tagList]) if !(article_params[:tagList].nil?)
-      render_article()
+    if !@current_user && (@current_user.id == @article.user_id) 
+      render json: {}, status: 401
     else
-      render json: @article.errors, status: :unprocessable_entity
+      create_slug()
+      if @article.update(article_params)
+        @article.tags = self.create_tag(article_params[:tagList]) if !(article_params[:tagList].nil?)
+        render_article()
+      else
+        render json: @article.errors, status: :unprocessable_entity
+      end
     end
   end
 
   def destroy
-    @article.destroy
+    if !@current_user && (@current_user.id == @article.user_id) 
+      render json: {}, status: 401
+    else
+      @article.destroy
+    end
   end
 
   private
@@ -74,4 +92,7 @@ class Api::ArticlesController < ApplicationController
       render json: { article: @article.render_json }
     end
   
+    def create_slug
+      @article.slug = @article.title.gsub(" ","-")+"-"+String(@article.id)
+    end
 end

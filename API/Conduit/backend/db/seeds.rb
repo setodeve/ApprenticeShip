@@ -21,7 +21,7 @@ end
     end
   end
 
-  article = Article.create(
+  article = Article.create!(
     title: 'タイトル',
     slug: '',
     description: 'descriptiondescription',
@@ -29,7 +29,7 @@ end
     user_id: user.id,
     tag_ids: savetag
   )
-  article.slug = article.title.parameterize+"-"+String(article.id)
+  article.slug = article.title.gsub(" ","-")+"-"+String(article.id)
   article.save
 end
 
