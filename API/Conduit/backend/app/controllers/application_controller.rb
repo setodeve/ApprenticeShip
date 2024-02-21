@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
   end
 
   def encrypt(user)
+
     payload = {id: user.id}
     return JWT.encode payload, Rails.application.credentials.secret_key_base, 'HS256'
   end

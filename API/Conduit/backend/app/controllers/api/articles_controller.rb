@@ -67,6 +67,7 @@ class Api::ArticlesController < ApplicationController
   end
 
   def destroy
+    puts @current_user
     if !@current_user && (@current_user.id == @article.user_id) 
       render json: {}, status: 401
     else
@@ -93,7 +94,7 @@ class Api::ArticlesController < ApplicationController
     end
 
     def render_article
-      render json: { article: @article.render_json }
+      render json: { article: @article.render_json() }
     end
   
     def create_slug
