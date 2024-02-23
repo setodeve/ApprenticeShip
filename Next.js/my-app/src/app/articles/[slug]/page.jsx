@@ -47,7 +47,7 @@ export default async function Article({ params }) {
 }
 
 async function getData(slug) {
-  const res = await fetch('http://localhost:3000/api/articles/'+ decodeURIComponent(slug))
+  const res = await fetch('https://setokei.site/api/articles/'+ decodeURIComponent(slug))
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

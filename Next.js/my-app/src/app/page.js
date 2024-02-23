@@ -104,7 +104,7 @@ export default async function Home() {
 }
 
 async function getData() {
-  const res = await fetch('http://localhost:3000/api/articles')
+  const res = await fetch('https://setokei.site/api/articles')
   if (!res.ok) {
     throw new Error('Failed to fetch data')
   }

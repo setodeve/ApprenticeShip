@@ -9,7 +9,7 @@ export default function CreateArticle() {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
     
-    const response = await fetch('http://localhost:3000/api/articles/', {
+    const response = await fetch('https://setokei.site/api/articles/', {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',

@@ -39,7 +39,7 @@ export default function Page(data) {
 
 async function deleteArticle(slug,router,token){
 
-  const res = await fetch('http://localhost:3000/api/articles/'+ decodeURIComponent(slug),{
+  const res = await fetch('https://setokei.site/api/articles/'+ decodeURIComponent(slug),{
     method: 'delete',
     headers: { 
       'Content-Type': 'application/json',
