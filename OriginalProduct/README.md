@@ -7,16 +7,20 @@
 
 ## なぜそれを解決したいのか？
 
+### 当事者からの観点
+
 * 作業指示書が手書き
 
-### 陶吉郎
+### 既存のサービスからの観点
+
+#### 陶吉郎
 http://aricom.jp/business/system.html
 * メリット
   * 機能が充実
 * デメリット
   * windowsデスクトップアプリのみ対応。
 
-### kintone
+#### kintone
 https://kintone-sol.cybozu.co.jp/integrate/itfit010.html
 * メリット
   * 機能が充実
